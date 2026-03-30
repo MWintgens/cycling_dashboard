@@ -74,7 +74,7 @@ def render_map(activities: list[dict], latest_pos: dict | None) -> str:
         folium.Marker(
             location=[latest_pos["lat"], latest_pos["lon"]],
             popup=folium.Popup(
-                f"<b>📍 Sara is hier!</b><br>"
+                f"<b>📍 Roos is hier!</b><br>"
                 f"{latest_pos.get('city','')}<br>"
                 f"<small>{latest_pos.get('activity_name','')}</small>",
                 max_width=200,
@@ -83,7 +83,7 @@ def render_map(activities: list[dict], latest_pos: dict | None) -> str:
                 icon_image="https://cdn-icons-png.flaticon.com/32/3163/3163059.png",
                 icon_size=(32, 32),
             ),
-            tooltip="📍 Sara is hier!",
+            tooltip="📍 Roos is hier!",
         ).add_to(m)
 
         # Puls-cirkel rondom huidige positie

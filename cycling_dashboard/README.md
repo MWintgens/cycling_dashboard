@@ -1,6 +1,6 @@
-# 🚴 Sara's Fietsavontuur — Travel Dashboard
+# 🚴 Roos's Fietsavontuur — Travel Dashboard
 
-Een live Streamlit-dashboard voor Sara's 6-maanden fietsreis.  
+Een live Streamlit-dashboard voor Roos's 6-maanden fietsreis.  
 Toont Strava-stats, interactieve kaart, weersvoorspelling, fun facts en een activiteiten-feed.
 
 ---
@@ -102,7 +102,7 @@ De app draait op http://localhost:8501 — ook mooi te zien op iPhone via je lok
 ## 🎨 Aanpassen
 
 - **Startdatum**: pas `start_date` aan in `app.py` (regel ~38)
-- **Naam**: zoek op "Sara" in `app.py` en vervang
+- **Naam**: zoek op "Roos" in `app.py` en vervang
 - **Fun stats**: voeg vergelijkingen toe in `utils/stats.py`
 - **Kleur**: het oranje `#ff6b35` is de hoofdkleur — zoek/vervang om te wijzigen
 - **Landen**: verfijn de detectie in `utils/stats.py` met de Nominatim geocoder
