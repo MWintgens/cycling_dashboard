@@ -21,9 +21,9 @@ st.set_page_config(
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
 
-# Inloggegevens
-VALID_USERNAME = "roos"
-VALID_PASSWORD = "fietsennaarchina"
+# Laad inloggegevens uit secrets.toml
+VALID_USERNAME = st.secrets.get("LOGIN_USERNAME", "roos")
+VALID_PASSWORD = st.secrets.get("LOGIN_PASSWORD", "")
 PASSWORD_HASH = hash_password(VALID_PASSWORD)
 
 # Controleer login
