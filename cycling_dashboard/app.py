@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime, timedelta
 import time
+import hashlib
 
 from utils.strava import get_all_activities, get_latest_position
 from utils.weather import get_weather
@@ -15,6 +16,44 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed",
 )
+
+# ── Authenticatie ────────────────────────────────────────────────────────────
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
+
+# Inloggegevens
+VALID_USERNAME = "roos"
+VALID_PASSWORD = "fietsennaarchina"
+PASSWORD_HASH = hash_password(VALID_PASSWORD)
+
+# Controleer login
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+
+if not st.session_state.logged_in:
+    st.markdown("# 🚴 Roos's Fietsavontuur")
+    st.markdown("---")
+    
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        st.markdown("### Inloggen")
+        username = st.text_input("Gebruikersnaam")
+        password = st.text_input("Wachtwoord", type="password")
+        
+        if st.button("Inloggen", use_container_width=True):
+            if username == VALID_USERNAME and hash_password(password) == PASSWORD_HASH:
+                st.session_state.logged_in = True
+                st.rerun()
+            else:
+                st.error("❌ Ongeldige gebruikersnaam of wachtwoord")
+    st.stop()
+
+# Uitloggen knop
+with st.sidebar:
+    if st.button("🚪 Uitloggen"):
+        st.session_state.logged_in = False
+        st.rerun()
+
 
 
 
