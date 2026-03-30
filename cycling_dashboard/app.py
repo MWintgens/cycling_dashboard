@@ -54,7 +54,8 @@ with st.sidebar:
         st.session_state.logged_in = False
         st.rerun()
 
-
+# Welkomstbericht
+st.success("Lieve Roos, het brengt momenteel super veel spannends met zich mee maar ik wens je heel veel plezier op je avontuur!")
 
 
 # ── Styling ──────────────────────────────────────────────────────────────────
