@@ -6,16 +6,26 @@ Toont alle Strava-routes + huidige positie-marker.
 import folium
 from folium import plugins
 import polyline  # pip install polyline
+from datetime import datetime
 
 
 def render_map(activities: list[dict], latest_pos: dict | None) -> str:
     """Genereer een Folium-kaart als HTML string."""
 
+    def _parse_activity_dt(act: dict) -> datetime:
+        dt_str = act.get("start_date_local") or ""
+        try:
+            return datetime.fromisoformat(dt_str)
+        except Exception:
+            return datetime.min
+
+    sorted_activities = sorted(activities, key=_parse_activity_dt)
+
     # Bepaal startpunt van kaart
     if latest_pos:
         center = [latest_pos["lat"], latest_pos["lon"]]
-    elif activities:
-        first = activities[-1]  # oudste rit
+    elif sorted_activities:
+        first = sorted_activities[0]  # oudste rit
         coords = first.get("start_latlng") or [50.0, 10.0]
         center = coords
     else:
@@ -31,7 +41,7 @@ def render_map(activities: list[dict], latest_pos: dict | None) -> str:
     # ── Routes tekenen ────────────────────────────────────────────────────────
     route_points_all = []  # voor automatisch zoomen
 
-    for i, act in enumerate(reversed(activities)):  # oud → nieuw
+    for i, act in enumerate(sorted_activities):  # oud → nieuw
         poly = act.get("map", {}).get("summary_polyline", "")
         if poly:
             try:
@@ -98,14 +108,24 @@ def render_map(activities: list[dict], latest_pos: dict | None) -> str:
         ).add_to(m)
 
     # ── Startpunt markeren ────────────────────────────────────────────────────
-    if activities:
-        start_act = activities[-1]
+    if sorted_activities:
+        start_act = sorted_activities[0]
         start_coords = start_act.get("start_latlng") or []
         if len(start_coords) == 2:
             folium.Marker(
                 location=start_coords,
                 icon=folium.Icon(color="green", icon="home", prefix="fa"),
                 tooltip="🏠 Startpunt",
+            ).add_to(m)
+
+        # Toon duidelijk het eindpunt van de meest recente rit
+        end_act = sorted_activities[-1]
+        end_coords = end_act.get("end_latlng") or []
+        if len(end_coords) == 2:
+            folium.Marker(
+                location=end_coords,
+                icon=folium.Icon(color="red", icon="flag-checkered", prefix="fa"),
+                tooltip="🏁 Eindpunt laatste rit",
             ).add_to(m)
 
     # ── Zoom op route ─────────────────────────────────────────────────────────
