@@ -51,7 +51,7 @@ def _get_access_token() -> str:
 
 from datetime import datetime
 
-def get_all_activities(max_pages: int = 20, start_date: str = "2026-01-01") -> list[dict]:
+def get_all_activities(max_pages: int = 20, start_date: str = "2026-05-02") -> list[dict]:
     token = _get_access_token()
     if not token:
         return _demo_activities()

@@ -20,6 +20,33 @@ COUNTRY_LOOKUP = {
     "Belgium":     (49.5, 51.5, 2.5, 6.4),
     "Czech Republic": (48.5, 51.1, 12.1, 18.9),
     "Hungary":     (45.7, 48.6, 16.1, 22.9),
+    "Poland":      (49.0, 54.8, 14.1, 24.1),
+    "Slovakia":    (47.7, 49.6, 16.8, 22.6),
+    "Slovenia":    (45.4, 46.9, 13.4, 16.6),
+    "Croatia":     (42.4, 46.5, 13.5, 19.5),
+    "Bosnia and Herzegovina": (42.6, 45.3, 15.7, 19.6),
+    "Serbia":      (42.2, 46.2, 18.8, 23.0),
+    "Montenegro":  (41.8, 43.6, 18.3, 20.3),
+    "North Macedonia": (40.8, 42.5, 20.5, 22.9),
+    "Albania":     (39.6, 42.7, 19.0, 21.1),
+    "Romania":     (43.6, 48.3, 20.2, 29.7),
+    "Roemenië":    (43.6, 48.3, 20.2, 29.7),
+    "Roemenie":    (43.6, 48.3, 20.2, 29.7),
+    "Bulgaria":    (41.2, 44.2, 22.4, 28.8),
+    "Greece":      (34.8, 41.8, 19.6, 28.3),
+    "Turkey":      (36.0, 42.1, 26.0, 44.8),
+    "Georgia":     (41.0, 43.6, 40.0, 46.8),
+    "Armenia":     (38.8, 41.3, 43.4, 46.6),
+    "Azerbaijan":  (38.3, 41.9, 44.8, 50.4),
+    "Iran":        (25.0, 39.8, 44.0, 63.3),
+    "Kazakhstan":  (40.6, 55.4, 46.5, 87.3),
+    "Uzbekistan":  (37.1, 45.6, 56.0, 73.1),
+    "Turkmenistan":(35.1, 42.8, 52.4, 66.9),
+    "Kyrgyzstan":  (39.2, 42.9, 69.0, 80.2),
+    "Tajikistan":  (36.7, 41.0, 67.0, 75.2),
+    "Mongolia":    (41.5, 52.1, 87.7, 119.9),
+    "China":       (18.2, 53.6, 73.5, 134.8),
+
 }
 
 
@@ -51,13 +78,22 @@ def compute_totals(activities: list[dict]) -> dict:
                         countries.add(c)
                     break
 
+    # Normaliseer bekende aliassen (bijv. Nederlandse namen) om dubbele
+    # tellingen te voorkomen.
+    ALIAS_MAP = {
+        "Roemenië": "Romania",
+        "Roemenie": "Romania",
+        "Hongarije": "Hungary",
+    }
+    normalized = {ALIAS_MAP.get(c, c) for c in countries}
+
     return {
         "distance_km":   total_m / 1000,
         "elevation_m":   total_elev,
         "rides":         n_rides,
         "moving_hours":  moving_s / 3600,
-        "countries":     len(countries) if countries else max(1, n_rides // 3),
-        "country_names": sorted(countries),
+        "countries":     len(normalized) if normalized else max(1, n_rides // 3),
+        "country_names": sorted(normalized),
     }
 
 

@@ -7,12 +7,24 @@ from datetime import datetime
 
 def build_feed(activities: list[dict], n: int = 10) -> list[dict]:
     """Maak een lijst van de n meest recente ritten, geformatteerd voor weergave."""
+    # Sorteer op startdatum (meest recent eerst). Strava-activiteiten kunnen
+    # in willekeurige volgorde binnenkomen, dus expliciet sorteren is veiliger.
+    def _parse_dt(a):
+        s = a.get("start_date_local") or ""
+        try:
+            return datetime.fromisoformat(s)
+        except Exception:
+            return datetime.min
+
+    sorted_acts = sorted(activities, key=_parse_dt, reverse=True)
+
     result = []
-    for act in activities[:n]:
+    for act in sorted_acts[:n]:
         dt_str = act.get("start_date_local", "")
         try:
             dt = datetime.fromisoformat(dt_str)
-            date_str = dt.strftime("%-d %b %Y")  # bijv. "7 jun 2025"
+            # Gebruik locale-onafhankelijke formatting: dag, korte maand, jaar
+            date_str = f"{dt.day} {dt.strftime('%b')} {dt.year}"
         except Exception:
             date_str = dt_str[:10] if dt_str else "?"
 

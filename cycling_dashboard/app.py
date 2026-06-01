@@ -119,7 +119,7 @@ st.markdown("""
 col_h1, col_h2 = st.columns([3, 1])
 with col_h1:
     st.markdown("# 🚴 Roos's Fietsavontuur")
-    start_date = datetime(2026, 3, 1)   # ← pas aan naar werkelijke startdatum
+    start_date = datetime(2026, 5, 2)   # ← pas aan naar werkelijke startdatum
     days_on_road = (datetime.now() - start_date).days
     st.markdown(
         f"**Dag {max(days_on_road, 0)}** van de grote tocht &nbsp;·&nbsp; "
@@ -136,7 +136,7 @@ st.divider()
 # ── Data laden (gecacht 15 min) ──────────────────────────────────────────────
 @st.cache_data(ttl=900, show_spinner="Strava data ophalen…")
 def load_data():
-    activities = get_all_activities(start_date="2026-01-01")  # ← aanpassen naar haar vertrekdatum
+    activities = get_all_activities(start_date="2026-05-02")  # ← aanpassen naar haar vertrekdatum
     return activities
 
 with st.spinner("Data ophalen…"):
