@@ -1,6 +1,6 @@
 # 🚴 Roos's Fietsavontuur — Travel Dashboard
 
-Een live Streamlit-dashboard voor Roos's 6-maanden fietsreis.  
+Een live Streamlit-dashboard voor Roos haar 6-maanden fietsreis.  
 Toont Strava-stats, interactieve kaart, weersvoorspelling, fun facts en een activiteiten-feed.
 
 ---
@@ -47,6 +47,12 @@ curl -X POST https://www.strava.com/oauth/token \
   -d code=JOUW_CODE \
   -d grant_type=authorization_code
 ```
+
+curl -X POST https://www.strava.com/oauth/token \
+  -d client_id=254371 \
+  -d client_secret=cbdf2e1ffac6d221f1c00554d4b7392f930e424c \
+  -d code=4f46e13eeff6c566e302145bead9a13903373c10 \
+  -d grant_type=authorization_code
 
 Kopieer de `refresh_token` uit de response. **Dit token hoef je nooit te vernieuwen** — de app doet dat automatisch.
 

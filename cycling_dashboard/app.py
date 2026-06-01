@@ -11,7 +11,7 @@ from utils.map import render_map
 from utils.feed import build_feed
 
 st.set_page_config(
-    page_title="🚴 Roos's Fietsavontuur",
+    page_title="🚴 Roos Fietsavontuur",
     page_icon="🚴",
     layout="wide",
     initial_sidebar_state="collapsed",
@@ -31,7 +31,7 @@ if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 
 if not st.session_state.logged_in:
-    st.markdown("# 🚴 Roos's Fietsavontuur")
+    st.markdown("# 🚴 Roos Fietsavontuur")
     st.markdown("---")
     
     col1, col2, col3 = st.columns([1, 2, 1])
@@ -118,7 +118,7 @@ st.markdown("""
 # ── Header ────────────────────────────────────────────────────────────────────
 col_h1, col_h2 = st.columns([3, 1])
 with col_h1:
-    st.markdown("# 🚴 Roos's Fietsavontuur")
+    st.markdown("# 🚴 Roos Fietsavontuur")
     start_date = datetime(2026, 5, 2)   # ← pas aan naar werkelijke startdatum
     days_on_road = (datetime.now() - start_date).days
     st.markdown(
