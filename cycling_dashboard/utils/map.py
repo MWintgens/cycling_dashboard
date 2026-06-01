@@ -80,32 +80,32 @@ def render_map(activities: list[dict], latest_pos: dict | None) -> str:
                 route_points_all.append(start)
 
     # ── Huidige positie marker ────────────────────────────────────────────────
-    if latest_pos:
-        folium.Marker(
-            location=[latest_pos["lat"], latest_pos["lon"]],
-            popup=folium.Popup(
-                f"<b>📍 Roos is hier!</b><br>"
-                f"{latest_pos.get('city','')}<br>"
-                f"<small>{latest_pos.get('activity_name','')}</small>",
-                max_width=200,
-            ),
-            icon=folium.CustomIcon(
-                icon_image="https://cdn-icons-png.flaticon.com/32/3163/3163059.png",
-                icon_size=(32, 32),
-            ),
-            tooltip="📍 Roos is hier!",
-        ).add_to(m)
+    # if latest_pos:
+    #     folium.Marker(
+    #         location=[latest_pos["lat"], latest_pos["lon"]],
+    #         popup=folium.Popup(
+    #             f"<b>📍 Roos is hier!</b><br>"
+    #             f"{latest_pos.get('city','')}<br>"
+    #             f"<small>{latest_pos.get('activity_name','')}</small>",
+    #             max_width=200,
+    #         ),
+    #         icon=folium.CustomIcon(
+    #             icon_image="https://cdn-icons-png.flaticon.com/32/3163/3163059.png",
+    #             icon_size=(32, 32),
+    #         ),
+    #         tooltip="📍 Roos is hier!",
+    #     ).add_to(m)
 
-        # Puls-cirkel rondom huidige positie
-        folium.CircleMarker(
-            location=[latest_pos["lat"], latest_pos["lon"]],
-            radius=14,
-            color="#ff6b35",
-            fill=True,
-            fill_color="#ff6b35",
-            fill_opacity=0.2,
-            weight=2,
-        ).add_to(m)
+    #     # Puls-cirkel rondom huidige positie
+    #     folium.CircleMarker(
+    #         location=[latest_pos["lat"], latest_pos["lon"]],
+    #         radius=14,
+    #         color="#ff6b35",
+    #         fill=True,
+    #         fill_color="#ff6b35",
+    #         fill_opacity=0.2,
+    #         weight=2,
+    #     ).add_to(m)
 
     # ── Startpunt markeren ────────────────────────────────────────────────────
     if sorted_activities:

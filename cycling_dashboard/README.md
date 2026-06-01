@@ -1,4 +1,4 @@
-# 🚴 Roos's Fietsavontuur — Travel Dashboard
+# 🚴 Roos op de fiets naar China — Travel Dashboard
 
 Een live Streamlit-dashboard voor Roos haar 6-maanden fietsreis.  
 Toont Strava-stats, interactieve kaart, weersvoorspelling, fun facts en een activiteiten-feed.
